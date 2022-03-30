@@ -127,14 +127,16 @@ if ("IntersectionObserver" in window) {
 const grid = document.querySelector(".character-grid");
 const gridzoom = document.querySelector(".character-grid-zoom");
 const gridtoggle = document.querySelector(".character-grid-toggle");
-grid.onmousemove = throttle(e => {
-	if (e.target.tagName === "LI") {
-		gridzoom.innerHTML = e.target.innerHTML;
+if (grid) {
+	grid.onmousemove = throttle(e => {
+		if (e.target.tagName === "LI" && gridzoom) {
+			gridzoom.innerHTML = e.target.innerHTML;
+		}
+	}, 100);
+	if (gridtoggle) {
+		gridtoggle.onchange = e => {
+			grid.classList.remove(...fontClasses);
+			grid.classList.add(e.target.value);
+		};
 	}
-}, 100);
-if (gridtoggle) {
-	gridtoggle.onchange = e => {
-		grid.classList.remove(...fontClasses);
-		grid.classList.add(e.target.value);
-	};
 }
